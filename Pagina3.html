@@ -25,6 +25,7 @@
     }
 
     h1 {
+      
       font-family: 'Montserrat', Arial, sans-serif;
       font-size: 2.5rem;
       font-weight: 700;
@@ -32,6 +33,20 @@
       color: #f0f0f0;
       text-shadow: 2px 2px 4px #000;
     }
+    @keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  animation: fadeIn 1.5s ease-out;
+}
 
     .container {
       background-color: #3c3c3c;
