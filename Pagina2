@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Utenti</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', Arial, sans-serif;
+      background-color: #2c2c2c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #f0f0f0;
+      text-shadow: 2px 2px 4px #000;
+    }
+    .container {
+      background-color: #3c3c3c;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    .input-container {
+      display: flex;
+      gap: 0.5rem;
+    }
+    input[type="text"] {
+      padding: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      border-radius: 1rem;
+      outline: none;
+      border: none;
+      width: 200px;
+      background-color: #44AD72;
+      color: white;
+    }
+    button {
+      background-color: #44AD72;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #3a9c65;
+      transform: translateY(-5px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    ul {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #44AD72;
+      color: white;
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Gestione Utenti</h1>
+  <div class="container">
+    <div class="input-container">
+      <input type="text" id="username" placeholder="Inserisci il nome">
+      <button onclick="addUser()">Aggiungi</button>
+    </div>
+    <ul id="user-list"></ul>
+  </div>
+  <script>
+    const userList = document.getElementById('user-list');
+
+    function addUser() {
+      const username = document.getElementById('username').value;
+      if (username.trim() === '') return;
+
+      const listItem = document.createElement('li');
+      listItem.innerText = username;
+      listItem.classList.add('user-item');
+
+      const deleteButton = document.createElement('button');
+      deleteButton.innerText = 'Elimina';
+      deleteButton.onclick = function() {
+        userList.removeChild(listItem);
+      };
+
+      listItem.appendChild(deleteButton);
+      userList.appendChild(listItem);
+
+      document.getElementById('username').value = '';
+    }
+  </script>
+</body>
+</html>
