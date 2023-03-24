@@ -91,16 +91,16 @@
   </style>
 </head>
 <body>
-  <h1>Gestione Utenti</h1>
+  <h1>Gestione utenti</h1>
   <div class="container">
     <div class="input-container">
       <input type="text" id="username" placeholder="Inserisci il nome">
       <button onclick="addUser()">Aggiungi</button>
     </div>
-    <ul id="user-list"></ul>
+    <ul id="elenco-utenti"></ul>
   </div>
   <script>
-    const userList = document.getElementById('user-list');
+    const userList = document.getElementById('elenco-utenti');
 
     function addUser() {
       const username = document.getElementById('username').value;
@@ -108,19 +108,54 @@
 
       const listItem = document.createElement('li');
       listItem.innerText = username;
-      listItem.classList.add('user-item');
+      listItem.classList.add('elemento-utente');
 
       const deleteButton = document.createElement('button');
       deleteButton.innerText = 'Elimina';
       deleteButton.onclick = function() {
         userList.removeChild(listItem);
+        removeFromLocalStorage(username);
       };
 
       listItem.appendChild(deleteButton);
       userList.appendChild(listItem);
 
-      document.getElementById('username').value = '';
+document.getElementById('username').value = '';
+      saveToLocalStorage(username);
     }
+
+    function saveToLocalStorage(username) {
+      let users = JSON.parse(localStorage.getItem('utenti')) || [];
+      users.push(username);
+      localStorage.setItem('utenti', JSON.stringify(users));
+    }
+
+    function removeFromLocalStorage(username) {
+      let users = JSON.parse(localStorage.getItem('utenti')) || [];
+      users = users.filter(user => user !== username);
+      localStorage.setItem('utenti', JSON.stringify(users));
+    }
+
+    function loadFromLocalStorage() {
+      let users = JSON.parse(localStorage.getItem('utenti')) || [];
+      users.forEach(username => {
+        const listItem = document.createElement('li');
+        listItem.innerText = username;
+        listItem.classList.add('elemento-utente');
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Elimina';
+        deleteButton.onclick = function() {
+          userList.removeChild(listItem);
+          removeFromLocalStorage(username);
+        };
+
+        listItem.appendChild(deleteButton);
+        userList.appendChild(listItem);
+      });
+    }
+
+    loadFromLocalStorage();
   </script>
 </body>
 </html>
